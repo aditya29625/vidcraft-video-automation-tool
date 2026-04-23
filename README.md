@@ -32,7 +32,7 @@ VidCraft AI is a powerful, AI-driven content generation tool designed for creato
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/aditya29625/vidcraft.git
+git clone https://github.com/aditya29625/vidcraft-video-automation-tool.git
 cd vidcraft
 ```
 
