@@ -3,20 +3,23 @@ async function query(data) {
 		"https://api-inference.huggingface.co/models/black-forest-labs/FLUX.1-dev",
 		{
 			headers: {
-				Authorization: process.env.HF_API_KEY,
+				Authorization: `Bearer ${process.env.HF_API_KEY}`,
 				"Content-Type": "application/json",
 			},
 			method: "POST",
 			body: JSON.stringify(data),
 		}
 	);
+	if (!response.ok) {
+		const text = await response.text();
+		throw new Error(`HuggingFace API error: ${response.status} - ${text}`);
+	}
 	const result = await response.blob();
 	return result;
 }
 
 async function main(title){
     try {
-        
         const prompt = `Create an image with an abstract background and a person or robot with large bold text saying "${title}". Add some elements that reflect the theme of the title. The overall style should be visually appealing, and realistic with high detail.`;
         const blob = await query({ 
             "inputs": prompt,
@@ -29,6 +32,7 @@ async function main(title){
         return dataUrl;
     } catch (error) {
         console.error("Error fetching image:", error);
+        throw error;
     }
 }
 

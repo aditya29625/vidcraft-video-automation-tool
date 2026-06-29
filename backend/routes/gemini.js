@@ -26,7 +26,7 @@ async function generate(title,type){
   }
   catch(err){
     console.log("Error in generating content",err);
-    return err;
+    throw err;
   }
 }
 
